@@ -14,7 +14,10 @@ import { getChatGroupDataAndReturn } from './controller/GroupChat'
 //App set up
 dotenv.config()
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: 'https://sirichat.000webhostapp.com/',
+    methods: ["GET", "POST", "PUT", "DELETE"]
+}))
 app.use(express.json())
 var port = process.env.PORT || 5000
 var server = app.listen(port, () => {
@@ -23,7 +26,7 @@ var server = app.listen(port, () => {
 const io = new Server(server, {
     cors: {
         origin: "https://sirichat.000webhostapp.com/",
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
     }
 })
 io.on("connection", (socket) => {

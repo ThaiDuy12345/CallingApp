@@ -26,7 +26,10 @@ const GroupChat_2 = require("./controller/GroupChat");
 //App set up
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: 'https://sirichat.000webhostapp.com/',
+    methods: ["GET", "POST", "PUT", "DELETE"]
+}));
 app.use(express_1.default.json());
 var port = process.env.PORT || 5000;
 var server = app.listen(port, () => {
@@ -35,7 +38,7 @@ var server = app.listen(port, () => {
 const io = new socket_io_1.Server(server, {
     cors: {
         origin: "https://sirichat.000webhostapp.com/",
-        methods: ["GET", "POST"]
+        methods: ["GET", "POST", "PUT", "DELETE"]
     }
 });
 io.on("connection", (socket) => {
