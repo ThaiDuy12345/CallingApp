@@ -15,6 +15,7 @@ import { getChatGroupDataAndReturn } from './controller/GroupChat'
 dotenv.config()
 const app = express()
 app.use(cors({
+    credentials: true,
     origin: 'https://sirichat.000webhostapp.com/',
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))

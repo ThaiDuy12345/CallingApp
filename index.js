@@ -27,6 +27,7 @@ const GroupChat_2 = require("./controller/GroupChat");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
+    credentials: true,
     origin: 'https://sirichat.000webhostapp.com/',
     methods: ["GET", "POST", "PUT", "DELETE"]
 }));
