@@ -6,13 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const AccountSchema = new mongoose_1.default.Schema({
     _id: {
-        type: mongoose_1.default.Schema.Types.ObjectId
+        type: mongoose_1.default.Schema.Types.ObjectId,
     },
     name: {
         type: String
     },
     password: {
         type: String
+    },
+    email: {
+        type: String,
+        unique: true
     },
     group: [{
             _id: {

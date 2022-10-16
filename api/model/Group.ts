@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const GroupSchema = new mongoose.Schema({
     _id: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
     },
     name: {
         type: String

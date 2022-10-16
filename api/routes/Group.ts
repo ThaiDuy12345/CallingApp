@@ -4,6 +4,6 @@ const router = express.Router()
 
 
 
-router.use("/getAllGroup", getAllGroup)
+router.post("/getAllGroup", getAllGroup)
 
 export default router 

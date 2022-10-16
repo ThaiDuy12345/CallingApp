@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../components/Login'
 import Signin from '../components/Signin'
@@ -30,12 +30,15 @@ export default function Body() {
     if(Checking() === false) return <Login/>
     return <Navigate to="/"/>
   }
-  
+  const CheckingSignin = () => {
+    if(Checking() === false) return <Signin/>
+    return <Navigate to="/"/>
+  }
   return (
     <Routes>
       <Route path="*" element={<CheckingHome/>}/>
       <Route path="/login" element={<CheckingLogin/>} />
-      <Route path="/signin" element={<Signin/>} />
+      <Route path="/signin" element={<CheckingSignin/>} />
     </Routes>
   )
 }

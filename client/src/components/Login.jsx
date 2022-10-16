@@ -2,14 +2,14 @@ import React, { useState, useRef } from 'react'
 import axios from 'axios'
 export default function Login() {
   const [account, setAccount] = useState({
-    name: '',
+    email: '',
     password: ''
   })
-  const name = useRef()
+  const email = useRef()
   const password = useRef()
   const Login = () => {
     axios.post("http://localhost:5000/api/Account/getAccount", {
-        name: name.current.value,
+        email: email.current.value,
         password: password.current.value
     }).then(res => {
       if(res.data === null){
@@ -28,7 +28,7 @@ export default function Login() {
           <b className="col m-auto center" style={{fontSize:'30px'}}>SiriBlogger</b>
         </div>
         <div className="col-12 row m-0 mb-4 p-0">
-          <input ref={name} className="form-control col-8 m-auto mb-2" type="text" placeholder="Tên đăng nhập"/>
+          <input ref={email} className="form-control col-8 m-auto mb-2" type="text" placeholder="Email"/>
           <input ref={password} className="form-control col-8 m-auto mb-2" type="password" placeholder="Mật khẩu"/>
         </div>
         <div className="col-12 row m-0 mb-4 p-0">

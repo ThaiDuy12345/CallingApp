@@ -2,13 +2,17 @@ import mongoose from 'mongoose'
 
 const AccountSchema = new mongoose.Schema({
     _id: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
     },
     name: {
         type: String
     },
     password: {
         type: String
+    },
+    email: {
+        type: String,
+        unique:true
     },
     group: [{
         _id: {

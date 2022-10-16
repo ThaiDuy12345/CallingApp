@@ -1,17 +1,42 @@
 import React, { useState, useRef } from 'react'
+import axios from 'axios'
 export default function Signin() {
   const [account, setAccount] = useState(
-    { email: '', password: '', username: '', nickname: '' }
+    { email: '', password: '', username: '' }
   )
   const email = useRef()
   const password = useRef()
   const username = useRef()
-  const nickname = useRef()
+  const SigninFunction = () => {
+    alert(`${account.email}, ${account.password}, ${username.current.value}`)
+    axios.post("http://localhost:5000/api/Account/getAccount", {
+        email: account.email,
+        password: account.password
+    }).then(res => {
+      if(res.data === null){
+        axios.post("http://localhost:5000/api/Account/createAnAccount", {
+          email: account.email,
+          password: account.password,
+          username: username.current.value
+        }).then(res => {
+          if(res.data === null){
+            return
+          }
+          alert("Tạo tài khoản thành công")
+          localStorage.setItem("AccountID", res.data._id)
+          window.location.reload();
+        })
+      }else{
+        alert("Đăng nhập thất bại")
+        return
+      }
+    })
+  }
   function Page1(){
     return (
       <>
         <div className="col-12 row m-0 mb-4 p-0">
-            <input ref={email} className="form-control col-12 m-auto mb-2" type="text" placeholder="Tên đăng nhập hoặc email"/>
+            <input ref={email} className="form-control col-12 m-auto mb-2" type="text" placeholder="Email"/>
             <input ref={password} className="form-control col-12 m-auto mb-2" type="password" placeholder="Mật khẩu"/>
         </div>
         <div className="col-12 row m-0 mb-4 p-0">
@@ -21,7 +46,6 @@ export default function Signin() {
               email: email.current.value,
               password: password.current.value,
               username: '',
-              nickname: ''
             })}className="text-primary fw-bold" style={{border:'none', background:'none'}}>Tiếp tục</button>
           </div>
         </div>
@@ -38,16 +62,13 @@ export default function Signin() {
         </div>
         <div className="col-12 row m-0 mb-4 p-0">
             <div className="text-start col-12 m-auto mb-1 text-secondary fw-bold">Thông tin chi tiết</div>
-            <input ref={username} className="form-control col-12 m-auto mb-2" type="text" placeholder="Họ tên đầy đủ của bạn"/>
-            <input ref={nickname} className="form-control col-12 m-auto mb-2" type="text" placeholder="Biệt danh để hiển thị lên Blog"/>
+            <input ref={username} className="form-control col-12 m-auto mb-2" type="text" placeholder="Tên người dùng (Tên mà mọi người sẽ thấy bạn)"/>
         </div>
-        <div className="col-12 row m-0 mb-4 p-0">
-          <button onClick={() => setAccount({
-              email: email.current.value,
-              password: password.current.value,
-              username: username.current.value,
-              nickname: nickname.current.value
-            })}className="btn btn-success fw-bold">Đăng ký tài khoản</button>
+        <div className="col-6 row me-auto mb-4 p-0">
+          <button onClick={() => setAccount()} className="btn btn-danger fw-bold">Quay lại</button>
+        </div>
+        <div className="col-6 row ms-auto mb-4 p-0">
+          <button onClick={SigninFunction} className="btn btn-success fw-bold">Đăng ký tài khoản</button>
         </div>
       </>
     )

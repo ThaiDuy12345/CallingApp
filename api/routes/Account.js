@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Account_1 = require("../controller/Account");
 const router = express_1.default.Router();
-router.get("/getAllAccount", Account_1.getAllAccount);
+router.post("/getAllAccount", Account_1.getAllAccount);
 router.post("/getAccount", Account_1.getAccount);
 router.get("/getAccountWithId/:Id", Account_1.getAccountWithId);
 router.post("/createAnAccount", Account_1.createAnAccount);

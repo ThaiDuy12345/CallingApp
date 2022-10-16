@@ -14,9 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllGroup = void 0;
 const Group_1 = __importDefault(require("../model/Group"));
+const Account_1 = __importDefault(require("../model/Account"));
 const getAllGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    Group_1.default.find({}, (err, results) => {
-        res.json(results);
+    const account = yield Account_1.default.findOne({
+        _id: req.body.from_id
     });
+    if (account != null) {
+        Group_1.default.find({
+            _id: {
+                $in: account.group
+            }
+        }, (err, results) => {
+            if (!err) {
+                res.json(results);
+            }
+            else {
+                console.log(err);
+            }
+        });
+    }
 });
 exports.getAllGroup = getAllGroup;
