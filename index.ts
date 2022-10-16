@@ -25,6 +25,7 @@ var server = app.listen(port, () => {
 })
 const io = new Server(server, {
     cors: {
+        credentials: true,
         origin: "https://sirichat.000webhostapp.com/",
         methods: ["GET", "POST", "PUT", "DELETE"]
     }
