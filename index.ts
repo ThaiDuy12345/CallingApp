@@ -16,7 +16,7 @@ dotenv.config()
 const app = express()
 app.use(cors({
     credentials: true,
-    origin: 'https://keen-fudge-bfc7f6.netlify.app/',
+    origin: 'https://siri-real-time-chat.netlify.app/',
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
 app.use(express.json())
@@ -27,7 +27,7 @@ var server = app.listen(port, () => {
 const io = new Server(server, {
     cors: {
         credentials: true,
-        origin: "https://keen-fudge-bfc7f6.netlify.app/",
+        origin: "https://siri-real-time-chat.netlify.app/",
         methods: ["GET", "POST", "PUT", "DELETE"]
     }
 })
