@@ -8,6 +8,11 @@ export const getAllAccount = async(req:any, res:any) => {
         res.json(results)
     })
 }
+export const getEveryAccount = async(req:any, res:any) => {
+    Account.find((err:any, results:any) => {
+        res.json(results)
+    })
+}
 
 export const createAnAccount = async(req:any, res:any) => {
     const newAccount = new Account({

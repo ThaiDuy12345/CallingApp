@@ -3,10 +3,11 @@ import {
     getAllAccount,
     createAnAccount,
     getAccount,
-    getAccountWithId
+    getAccountWithId,
+    getEveryAccount
 } from '../controller/Account'
 const router = express.Router()
-
+router.get("/", getEveryAccount)
 router.post("/getAllAccount", getAllAccount)
 router.post("/getAccount", getAccount)
 router.get("/getAccountWithId/:Id", getAccountWithId)

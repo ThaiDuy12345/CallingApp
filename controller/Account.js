@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAccountWithId = exports.getAccount = exports.createAnAccount = exports.getAllAccount = void 0;
+exports.getAccountWithId = exports.getAccount = exports.createAnAccount = exports.getEveryAccount = exports.getAllAccount = void 0;
 const Account_1 = __importDefault(require("../model/Account"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const getAllAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -23,6 +23,12 @@ const getAllAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     });
 });
 exports.getAllAccount = getAllAccount;
+const getEveryAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    Account_1.default.find((err, results) => {
+        res.json(results);
+    });
+});
+exports.getEveryAccount = getEveryAccount;
 const createAnAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newAccount = new Account_1.default({
         _id: new mongoose_1.default.Types.ObjectId(),
