@@ -13,12 +13,12 @@ export default function MainBody() {
     const [allGroups, setAllGroups] = useState([])
     useEffect(() => {
         console.log("react effect has render")
-        axios.post("http://localhost:5000/api/Account/getAllAccount",{
+        axios.post("https://sirikakire-chat.herokuapp.com/api/Account/getAllAccount",{
             _id:localStorage.getItem('AccountID')
         }).then(res => {
             setAllAccounts(res.data)
         })
-        axios.post("http://localhost:5000/api/Group/getAllGroup",{
+        axios.post("https://sirikakire-chat.herokuapp.com/api/Group/getAllGroup",{
             from_id:localStorage.getItem('AccountID')
         }).then(res => {
             setAllGroups(res.data)

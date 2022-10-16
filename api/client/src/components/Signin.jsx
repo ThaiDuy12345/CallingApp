@@ -9,12 +9,12 @@ export default function Signin() {
   const username = useRef()
   const SigninFunction = () => {
     alert(`${account.email}, ${account.password}, ${username.current.value}`)
-    axios.post("http://localhost:5000/api/Account/getAccount", {
+    axios.post("https://sirikakire-chat.herokuapp.com/api/Account/getAccount", {
         email: account.email,
         password: account.password
     }).then(res => {
       if(res.data === null){
-        axios.post("http://localhost:5000/api/Account/createAnAccount", {
+        axios.post("https://sirikakire-chat.herokuapp.com/api/Account/createAnAccount", {
           email: account.email,
           password: account.password,
           username: username.current.value

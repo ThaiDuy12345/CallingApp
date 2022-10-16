@@ -10,7 +10,7 @@ export default function Body() {
       console.log('null localstorage')
       return false
     }else{
-      axios.get(`http://localhost:5000/api/Account/getAccountWithId/${localStorage.getItem("AccountID")}`)
+      axios.get(`https://sirikakire-chat.herokuapp.com/api/Account/getAccountWithId/${localStorage.getItem("AccountID")}`)
       .then(res => {
         if (res.data == null) {
           console.log('id not found') 

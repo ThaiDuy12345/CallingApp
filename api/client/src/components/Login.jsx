@@ -8,7 +8,7 @@ export default function Login() {
   const email = useRef()
   const password = useRef()
   const Login = () => {
-    axios.post("http://localhost:5000/api/Account/getAccount", {
+    axios.post("https://sirikakire-chat.herokuapp.com/api/Account/getAccount", {
         email: email.current.value,
         password: password.current.value
     }).then(res => {

@@ -16,7 +16,7 @@ export default function ChatGroupRender({Objects}){
         element.current.scrollTop = element.current.scrollHeight;
     })
     useEffect(() => {
-        socket.current = io("ws://localhost:5000")
+        socket.current = io("ws:https://sirikakire-chat.herokuapp.com/")
         socket.current.on('user-chat', (message) => {
             console.log("có tin nhắn tới")
             if(
@@ -32,7 +32,7 @@ export default function ChatGroupRender({Objects}){
     }, [id, allMessages])
     useEffect(() => {
         const to = localStorage.getItem('AccountID')
-        axios.post("http://localhost:5000/api/GroupChat/GetChat", {
+        axios.post("https://sirikakire-chat.herokuapp.com/api/GroupChat/GetChat", {
             user1_id: to,
             user2_id: id
         }).then(res => {
