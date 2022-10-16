@@ -28,7 +28,7 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     credentials: true,
-    origin: 'https://sirichat.000webhostapp.com/',
+    origin: 'https://keen-fudge-bfc7f6.netlify.app/',
     methods: ["GET", "POST", "PUT", "DELETE"]
 }));
 app.use(express_1.default.json());
@@ -39,7 +39,7 @@ var server = app.listen(port, () => {
 const io = new socket_io_1.Server(server, {
     cors: {
         credentials: true,
-        origin: "https://sirichat.000webhostapp.com/",
+        origin: "https://keen-fudge-bfc7f6.netlify.app/",
         methods: ["GET", "POST", "PUT", "DELETE"]
     }
 });
