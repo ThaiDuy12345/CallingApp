@@ -7,4 +7,5 @@ const express_1 = __importDefault(require("express"));
 const Group_1 = require("../controller/Group");
 const router = express_1.default.Router();
 router.post("/getAllGroup", Group_1.getAllGroup);
+router.post("/createGroup", Group_1.createGroup);
 exports.default = router;

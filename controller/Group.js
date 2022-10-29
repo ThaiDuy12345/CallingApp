@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllGroup = void 0;
+exports.createGroup = exports.getAllGroup = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
 const Group_1 = __importDefault(require("../model/Group"));
 const Account_1 = __importDefault(require("../model/Account"));
 const getAllGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,3 +36,43 @@ const getAllGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getAllGroup = getAllGroup;
+const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //Tạo nhóm mới
+    const group = new Group_1.default({
+        _id: new mongoose_1.default.Types.ObjectId(),
+        name: req.body.groupName
+    });
+    Group_1.default.create(group);
+    //Tìm kiếm account và thêm group mới tạo vào account
+    const account = yield Account_1.default.findOne({
+        _id: req.body._id
+    });
+    if (account === null) {
+        res.json(null);
+    }
+    else {
+        let groupArray = [...account.group, group._id];
+        Account_1.default.findOneAndUpdate({
+            _id: account._id
+        }, {
+            group: groupArray
+        });
+        //Thực hiện mời các thành viên vào group mới tạo
+        for (var i = 0; i < req.body.groupAccounts.length; i++) {
+            Account_1.default.findOne({
+                email: req.body.groupAccounts[i]
+            }, (err, result) => {
+                if (!err) {
+                    let groupInvite = [...result.group, group._id];
+                    Account_1.default.findOneAndUpdate({
+                        _id: result._id
+                    }, {
+                        group: groupInvite
+                    });
+                }
+            });
+        }
+        res.json(group);
+    }
+});
+exports.createGroup = createGroup;

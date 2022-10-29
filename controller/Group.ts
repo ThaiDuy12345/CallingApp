@@ -20,3 +20,41 @@ export const getAllGroup = async(req:any, res:any) => {
         })
     }
 }
+export const createGroup = async(req:any, res:any) => {
+    //Tạo nhóm mới
+    const group = new Group({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.groupName
+    })
+    Group.create(group)
+    //Tìm kiếm account và thêm group mới tạo vào account
+    const account = await Account.findOne({
+        _id: req.body._id
+    })
+    if(account === null){
+        res.json(null)
+    }else{
+        let groupArray = [...account.group, group._id]
+        Account.findOneAndUpdate({
+            _id: account._id
+        },{
+            group: groupArray
+        })
+        //Thực hiện mời các thành viên vào group mới tạo
+        for(var i = 0; i < req.body.groupAccounts.length; i++){
+            Account.findOne({
+                email: req.body.groupAccounts[i]
+            }, (err:any, result:any) => {
+                if(!err){
+                    let groupInvite = [...result.group, group._id]
+                    Account.findOneAndUpdate({
+                        _id: result._id
+                    },{
+                        group: groupInvite
+                    })
+                }
+            })
+        }
+        res.json(group)
+    }
+}
