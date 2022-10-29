@@ -67,14 +67,12 @@ const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             Account_1.default.findOne({
                 email: req.body.groupAccounts[i]
             }, (err, result) => {
-                if (!err) {
-                    let groupInvite = [...result.group, groupObject];
-                    Account_1.default.findOneAndUpdate({
-                        _id: result._id
-                    }, {
-                        group: groupInvite
-                    });
-                }
+                let groupInvite = [...result.group, groupObject];
+                Account_1.default.findOneAndUpdate({
+                    _id: result._id
+                }, {
+                    group: groupInvite
+                });
             });
         }
         res.json(group);
