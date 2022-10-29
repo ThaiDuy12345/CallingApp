@@ -34,7 +34,10 @@ export const createGroup = async(req:any, res:any) => {
     if(account === null){
         res.json(null)
     }else{
-        let groupArray = [...account.group, group._id]
+        let groupObject = {
+            _id: group._id
+        }
+        let groupArray = [...account.group, groupObject]
         Account.findOneAndUpdate({
             _id: account._id
         },{
@@ -46,7 +49,7 @@ export const createGroup = async(req:any, res:any) => {
                 email: req.body.groupAccounts[i]
             }, (err:any, result:any) => {
                 if(!err){
-                    let groupInvite = [...result.group, group._id]
+                    let groupInvite = [...result.group, groupObject]
                     Account.findOneAndUpdate({
                         _id: result._id
                     },{

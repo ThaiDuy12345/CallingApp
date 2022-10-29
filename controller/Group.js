@@ -51,7 +51,10 @@ const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.json(null);
     }
     else {
-        let groupArray = [...account.group, group._id];
+        let groupObject = {
+            _id: group._id
+        };
+        let groupArray = [...account.group, groupObject];
         Account_1.default.findOneAndUpdate({
             _id: account._id
         }, {
@@ -63,7 +66,7 @@ const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 email: req.body.groupAccounts[i]
             }, (err, result) => {
                 if (!err) {
-                    let groupInvite = [...result.group, group._id];
+                    let groupInvite = [...result.group, groupObject];
                     Account_1.default.findOneAndUpdate({
                         _id: result._id
                     }, {
