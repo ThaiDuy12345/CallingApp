@@ -38,12 +38,10 @@ export const createGroup = async(req:any, res:any) => {
             _id: group._id
         }
         let groupArray = [...account.group, groupObject]
-        Account.findOneAndUpdate({
+        await Account.findOneAndUpdate({
             _id: account._id
         },{
             group: groupArray
-        },{ 
-            new: true 
         })
         //Thực hiện mời các thành viên vào group mới tạo
         // for(var i = 0; i < req.body.groupAccounts.length; i++){
