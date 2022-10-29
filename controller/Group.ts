@@ -44,18 +44,20 @@ export const createGroup = async(req:any, res:any) => {
             group: groupArray
         })
         //Thực hiện mời các thành viên vào group mới tạo
-        // for(var i = 0; i < req.body.groupAccounts.length; i++){
-        //     Account.findOne({
-        //         email: req.body.groupAccounts[i]
-        //     }, (err:any, result:any) => {
-        //         let groupInvite = [...result.group, groupObject]
-        //         Account.findOneAndUpdate({
-        //             _id: result._id
-        //         },{
-        //             group: groupInvite
-        //         })
-        //     })
-        // }
+        for(var i = 0; i < req.body.groupAccounts.length; i++){
+            Account.findOne({
+                email: req.body.groupAccounts[i]
+            }, async (err:any, result:any) => {
+                if(!err){
+                    let groupInvite = [...result.group, groupObject]
+                    await Account.findOneAndUpdate({
+                        _id: result._id
+                    },{
+                        group: groupInvite
+                    })
+                }
+            })
+        }
         res.json(group)
     }
 }

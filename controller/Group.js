@@ -61,18 +61,20 @@ const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             group: groupArray
         });
         //Thực hiện mời các thành viên vào group mới tạo
-        // for(var i = 0; i < req.body.groupAccounts.length; i++){
-        //     Account.findOne({
-        //         email: req.body.groupAccounts[i]
-        //     }, (err:any, result:any) => {
-        //         let groupInvite = [...result.group, groupObject]
-        //         Account.findOneAndUpdate({
-        //             _id: result._id
-        //         },{
-        //             group: groupInvite
-        //         })
-        //     })
-        // }
+        for (var i = 0; i < req.body.groupAccounts.length; i++) {
+            Account_1.default.findOne({
+                email: req.body.groupAccounts[i]
+            }, (err, result) => __awaiter(void 0, void 0, void 0, function* () {
+                if (!err) {
+                    let groupInvite = [...result.group, groupObject];
+                    yield Account_1.default.findOneAndUpdate({
+                        _id: result._id
+                    }, {
+                        group: groupInvite
+                    });
+                }
+            }));
+        }
         res.json(group);
     }
 });
