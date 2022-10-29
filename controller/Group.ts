@@ -42,25 +42,31 @@ export const createGroup = async(req:any, res:any) => {
             _id: account._id
         },{
             group: groupArray
+        },{ 
+            new: true 
+        },(err, result) => {
+            if(result != null){
+                res.json(result)
+            }else{
+                console.log(err)
+                res.json(null)
+            }
         })
-        for(var i = 0; i < groupArray.length;i++){
-            console.log("new array: "+ groupArray[i]._id +" will be added to account: "+account.name)
-        }
-        //Thực hiện mời các thành viên vào group mới tạo
-        for(var i = 0; i < req.body.groupAccounts.length; i++){
-            Account.findOne({
-                email: req.body.groupAccounts[i]
-            }, (err:any, result:any) => {
-                if(!err){
-                    let groupInvite = [...result.group, groupObject]
-                    Account.findOneAndUpdate({
-                        _id: result._id
-                    },{
-                        group: groupInvite
-                    })
-                }
-            })
-        }
-        res.json(group)
+        // //Thực hiện mời các thành viên vào group mới tạo
+        // for(var i = 0; i < req.body.groupAccounts.length; i++){
+        //     Account.findOne({
+        //         email: req.body.groupAccounts[i]
+        //     }, (err:any, result:any) => {
+        //         if(!err){
+        //             let groupInvite = [...result.group, groupObject]
+        //             Account.findOneAndUpdate({
+        //                 _id: result._id
+        //             },{
+        //                 group: groupInvite
+        //             })
+        //         }
+        //     })
+        // }
+        // res.json(group)
     }
 }
