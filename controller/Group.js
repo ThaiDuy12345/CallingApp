@@ -61,31 +61,23 @@ const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             group: groupArray
         }, {
             new: true
-        }, (err, result) => {
-            if (result != null) {
-                res.json(result);
-            }
-            else {
-                console.log(err);
-                res.json(null);
-            }
         });
-        // //Thực hiện mời các thành viên vào group mới tạo
-        // for(var i = 0; i < req.body.groupAccounts.length; i++){
-        //     Account.findOne({
-        //         email: req.body.groupAccounts[i]
-        //     }, (err:any, result:any) => {
-        //         if(!err){
-        //             let groupInvite = [...result.group, groupObject]
-        //             Account.findOneAndUpdate({
-        //                 _id: result._id
-        //             },{
-        //                 group: groupInvite
-        //             })
-        //         }
-        //     })
-        // }
-        // res.json(group)
+        //Thực hiện mời các thành viên vào group mới tạo
+        for (var i = 0; i < req.body.groupAccounts.length; i++) {
+            Account_1.default.findOne({
+                email: req.body.groupAccounts[i]
+            }, (err, result) => {
+                if (!err) {
+                    let groupInvite = [...result.group, groupObject];
+                    Account_1.default.findOneAndUpdate({
+                        _id: result._id
+                    }, {
+                        group: groupInvite
+                    });
+                }
+            });
+        }
+        res.json(group);
     }
 });
 exports.createGroup = createGroup;
