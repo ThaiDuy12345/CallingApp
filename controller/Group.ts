@@ -43,7 +43,9 @@ export const createGroup = async(req:any, res:any) => {
         },{
             group: groupArray
         })
-        console.log("new array: "+ groupArray +" will be added to account: "+account.name)
+        for(var i = 0; i < groupArray.length;i++){
+            console.log("new array: "+ groupArray[i]._id +" will be added to account: "+account.name)
+        }
         //Thực hiện mời các thành viên vào group mới tạo
         for(var i = 0; i < req.body.groupAccounts.length; i++){
             Account.findOne({
