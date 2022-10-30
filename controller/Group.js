@@ -16,6 +16,7 @@ exports.leaveGroup = exports.joinGroup = exports.createGroup = exports.getAllGro
 const mongoose_1 = __importDefault(require("mongoose"));
 const Group_1 = __importDefault(require("../model/Group"));
 const Account_1 = __importDefault(require("../model/Account"));
+const GroupChat_1 = __importDefault(require("../model/GroupChat"));
 const getAllGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const account = yield Account_1.default.findOne({
         _id: req.body.from_id
@@ -106,10 +107,12 @@ const joinGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.joinGroup = joinGroup;
 const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
+    //Tìm kiếm tài khoản cần rời nhóm
     let account = yield Account_1.default.findOne({
         _id: req.body._id
     });
     if (account !== null) {
+        //Tìm kiếm và truy xuất nhóm cần rời
         let newGroupArray = account.group;
         for (var i = 0; i < newGroupArray.length; i++) {
             if (req.body.group_id === ((_a = newGroupArray[i]._id) === null || _a === void 0 ? void 0 : _a.toString())) {
@@ -117,22 +120,48 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 break;
             }
         }
+        //Cập nhật lại tài khoản mới
         yield Account_1.default.findOneAndUpdate({
             _id: account._id
         }, {
             group: newGroupArray
         });
-        Group_1.default.findOne({
+        //Tìm kiếm nhóm vừa bị xoá khỏi tài khoản
+        let group = yield Group_1.default.findOne({
             _id: req.body.group_id
-        }, (err, group) => {
-            if (!err)
-                res.json(group);
-            else
-                res.json(null);
         });
+        //Kiểm tra thử là có còn ai tồn đọng trong nhóm
+        if (checkAnyAccountLeftInTheGroup(yield Account_1.default.find({}), group === null || group === void 0 ? void 0 : group._id) === false) {
+            //Xoá hết tất cả đoạn chat đến group này
+            yield GroupChat_1.default.deleteMany({
+                to_id: group === null || group === void 0 ? void 0 : group._id
+            });
+            //Xoá nhóm
+            yield Group_1.default.findOneAndDelete({
+                _id: group === null || group === void 0 ? void 0 : group._id
+            });
+        }
+        else {
+            //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
+            yield GroupChat_1.default.updateMany({
+                to_id: group === null || group === void 0 ? void 0 : group._id
+            }, {
+                content: "Không hiển thị nội dung vì người dùng đã rời khỏi nhóm"
+            });
+        }
+        res.json(group);
     }
     else {
         res.json(null);
     }
 });
 exports.leaveGroup = leaveGroup;
+const checkAnyAccountLeftInTheGroup = (allAccount, group_id) => {
+    for (var i = 0; i < allAccount.length; i++) {
+        for (var k = 0; k < allAccount[i].group.length; k++) {
+            if (allAccount[i].group[k]._id.toString() === group_id)
+                return true;
+        }
+    }
+    return false;
+};

@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import Group from '../model/Group'
 import Account from '../model/Account'
+import GroupChat from '../model/GroupChat'
 export const getAllGroup = async(req:any, res:any) => {
     const account = await Account.findOne({
         _id:req.body.from_id
@@ -85,10 +86,12 @@ export const joinGroup = async (req:any, res:any) => {
     }else res.json(null)
 }
 export const leaveGroup = async (req:any, res:any) => {
+    //Tìm kiếm tài khoản cần rời nhóm
     let account = await Account.findOne({
         _id: req.body._id
     })
     if(account !== null){
+        //Tìm kiếm và truy xuất nhóm cần rời
         let newGroupArray = account.group
         for(var i = 0; i < newGroupArray.length; i++){
             if(req.body.group_id === newGroupArray[i]._id?.toString()){
@@ -96,19 +99,44 @@ export const leaveGroup = async (req:any, res:any) => {
                 break
             }
         }
+        //Cập nhật lại tài khoản mới
         await Account.findOneAndUpdate({
             _id: account._id
         }, {
             group: newGroupArray
         })
-        Group.findOne({
+        //Tìm kiếm nhóm vừa bị xoá khỏi tài khoản
+        let group = await Group.findOne({
             _id: req.body.group_id
-        }, (err:any, group: any) => {
-            if(!err) res.json(group)
-            else res.json(null)
         })
+        //Kiểm tra thử là có còn ai tồn đọng trong nhóm
+        if(checkAnyAccountLeftInTheGroup(await Account.find({}), group?._id) === false){
+            //Xoá hết tất cả đoạn chat đến group này
+            await GroupChat.deleteMany({
+                to_id: group?._id
+            })
+            //Xoá nhóm
+            await Group.findOneAndDelete({
+                _id: group?._id
+            })
+        }else{
+            //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
+            await GroupChat.updateMany({
+                to_id: group?._id
+            }, {
+                content: "Không hiển thị nội dung vì người dùng đã rời khỏi nhóm"
+            })
+        }
+        res.json(group)
     }else{
         res.json(null)
     }
-
+}
+const checkAnyAccountLeftInTheGroup = (allAccount:any, group_id:any) => {
+    for(var i = 0; i < allAccount.length; i++){
+        for(var k = 0;k < allAccount[i].group.length; k++){
+            if(allAccount[i].group[k]._id.toString() === group_id) return true
+        }
+    }
+    return false;
 }
