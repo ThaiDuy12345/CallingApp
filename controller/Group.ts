@@ -124,6 +124,7 @@ export const leaveGroup = async (req:any, res:any) => {
             console.log("Vẫn còn có người trong group")
             //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
             await GroupChat.updateMany({
+                from_id: account._id,
                 to_id: group?._id
             }, {
                 content: "Không hiển thị nội dung vì người dùng đã rời khỏi nhóm"

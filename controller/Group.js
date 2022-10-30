@@ -146,6 +146,7 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             console.log("Vẫn còn có người trong group");
             //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
             yield GroupChat_1.default.updateMany({
+                from_id: account._id,
                 to_id: group === null || group === void 0 ? void 0 : group._id
             }, {
                 content: "Không hiển thị nội dung vì người dùng đã rời khỏi nhóm"
