@@ -110,10 +110,8 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     });
     if (account !== null) {
         let newGroupArray = account.group;
-        console.log(req.body.group_id);
         for (var i = 0; i < newGroupArray.length; i++) {
-            console.log(newGroupArray[i]._id);
-            if (newGroupArray[i]._id === req.body.group_id) {
+            if (req.body.group_id.equals(newGroupArray[i]._id)) {
                 newGroupArray.splice(newGroupArray.indexOf(newGroupArray[i]), 1);
                 console.log("This is the group will be deleted from this account " + req.body.group_id);
                 break;
