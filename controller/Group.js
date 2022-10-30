@@ -86,7 +86,7 @@ const joinGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     if (account !== null) {
         let group = yield Group_1.default.findOne({
-            _id: req.body.group_id.trim()
+            _id: req.body.group_id
         });
         if (group === null) {
             res.json(null);
