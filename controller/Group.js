@@ -85,21 +85,23 @@ const joinGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         _id: req.body._id
     });
     if (account !== null) {
-        let newGroupArray = [...account.group, {
-                _id: req.body.group_id
-            }];
-        yield Account_1.default.findOneAndUpdate({
-            _id: account._id
-        }, {
-            group: newGroupArray
-        });
-        Group_1.default.findOne({
+        let group = yield Group_1.default.findOne({
             _id: req.body.group_id
-        }, (err, group) => {
-            if (!err) {
-                res.json(group);
-            }
         });
+        if (group === null) {
+            res.json(null);
+        }
+        else {
+            let newGroupArray = [...account.group, {
+                    _id: req.body.group_id
+                }];
+            yield Account_1.default.findOneAndUpdate({
+                _id: account._id
+            }, {
+                group: newGroupArray
+            });
+            res.json(group);
+        }
     }
     else
         res.json(null);
