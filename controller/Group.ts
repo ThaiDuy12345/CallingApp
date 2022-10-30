@@ -91,7 +91,7 @@ export const leaveGroup = async (req:any, res:any) => {
     if(account !== null){
         let newGroupArray = account.group
         for(var i = 0; i < newGroupArray.length; i++){
-            if(newGroupArray[i]._id === res.body.group_id){
+            if(newGroupArray[i]._id === req.body.group_id){
                 newGroupArray.splice(newGroupArray.indexOf(newGroupArray[i]), 1)
                 break
             }
