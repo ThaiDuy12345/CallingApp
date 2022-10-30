@@ -90,6 +90,7 @@ export const leaveGroup = async (req:any, res:any) => {
     })
     if(account !== null){
         let newGroupArray = account.group
+        console.log(req.body.group_id)
         for(var i = 0; i < newGroupArray.length; i++){
             console.log(newGroupArray[i]._id)
             if(newGroupArray[i]._id === req.body.group_id){
