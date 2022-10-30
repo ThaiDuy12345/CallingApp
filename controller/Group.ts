@@ -125,7 +125,7 @@ export const leaveGroup = async (req:any, res:any) => {
                 from_id: account._id,
                 to_id: group?._id
             }, {
-                content: "The message was deleted"
+                content: "The message was deleted!!"
             })
         }
         res.json(group)

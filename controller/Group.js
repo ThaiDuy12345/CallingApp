@@ -149,7 +149,7 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 from_id: account._id,
                 to_id: group === null || group === void 0 ? void 0 : group._id
             }, {
-                content: "The message was deleted"
+                content: "The message was deleted!!"
             });
         }
         res.json(group);
