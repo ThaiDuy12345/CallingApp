@@ -91,7 +91,7 @@ export const leaveGroup = async (req:any, res:any) => {
     if(account !== null){
         let newGroupArray = account.group
         for(var i = 0; i < newGroupArray.length; i++){
-            if(req.body.group_id.equals(newGroupArray[i]._id)){
+            if(req.body.group_id === newGroupArray[i]._id?.toString()){
                 newGroupArray.splice(newGroupArray.indexOf(newGroupArray[i]), 1)
                 console.log("This is the group will be deleted from this account "+req.body.group_id)
                 break

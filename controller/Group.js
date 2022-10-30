@@ -105,13 +105,14 @@ const joinGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.joinGroup = joinGroup;
 const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     let account = yield Account_1.default.findOne({
         _id: req.body._id
     });
     if (account !== null) {
         let newGroupArray = account.group;
         for (var i = 0; i < newGroupArray.length; i++) {
-            if (req.body.group_id.equals(newGroupArray[i]._id)) {
+            if (req.body.group_id === ((_a = newGroupArray[i]._id) === null || _a === void 0 ? void 0 : _a.toString())) {
                 newGroupArray.splice(newGroupArray.indexOf(newGroupArray[i]), 1);
                 console.log("This is the group will be deleted from this account " + req.body.group_id);
                 break;
