@@ -138,7 +138,9 @@ const checkAnyAccountLeftInTheGroup = (allAccount:any, group_id:any) => {
     for(var i = 0; i < allAccount.length; i++){
         for(var k = 0;k < allAccount[i].group.length; k++){
             console.log(allAccount[i].group[k]._id+ " vs "+group_id)
-            if(allAccount[i].group[k]._id === group_id) return true
+            if(allAccount[i].group[k]._id.toString() === group_id.toString()) {
+                return true
+            }
         }
     }
     return false;
