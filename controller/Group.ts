@@ -68,7 +68,7 @@ export const joinGroup = async (req:any, res:any) => {
     })
     if(account !== null){
         let group = await Group.findOne({
-            _id: req.body.group_id
+            _id: req.body.group_id.trim()
         })
         if(group === null){
             res.json(null)
