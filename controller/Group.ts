@@ -61,3 +61,26 @@ export const createGroup = async(req:any, res:any) => {
         res.json(group)
     }
 }
+export const joinGroup = async (req:any, res:any) => {
+    let account = await Account.findOne({
+        _id: req.body._id
+    })
+    if(account !== null){
+        let newGroupArray = [...account.group, {
+            _id: req.body.group_id
+        }]
+        await Account.findOneAndUpdate({
+            _id: account._id
+        },{
+            group: newGroupArray
+        })
+        Group.findOne({
+            _id: req.body.group_id
+        }, (err:any, group:any) => {
+            if(!err){
+                res.json(group)
+            }
+        })
+        
+    }else res.json(null)
+}

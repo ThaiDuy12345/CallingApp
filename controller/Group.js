@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createGroup = exports.getAllGroup = void 0;
+exports.joinGroup = exports.createGroup = exports.getAllGroup = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const Group_1 = __importDefault(require("../model/Group"));
 const Account_1 = __importDefault(require("../model/Account"));
@@ -79,3 +79,28 @@ const createGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.createGroup = createGroup;
+const joinGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let account = yield Account_1.default.findOne({
+        _id: req.body._id
+    });
+    if (account !== null) {
+        let newGroupArray = [...account.group, {
+                _id: req.body.group_id
+            }];
+        yield Account_1.default.findOneAndUpdate({
+            _id: account._id
+        }, {
+            group: newGroupArray
+        });
+        Group_1.default.findOne({
+            _id: req.body.group_id
+        }, (err, group) => {
+            if (!err) {
+                res.json(group);
+            }
+        });
+    }
+    else
+        res.json(null);
+});
+exports.joinGroup = joinGroup;
