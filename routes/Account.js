@@ -11,10 +11,4 @@ router.post("/getAllAccount", Account_1.getAllAccount);
 router.post("/getAccount", Account_1.getAccount);
 router.get("/getAccountWithId/:Id", Account_1.getAccountWithId);
 router.post("/createAnAccount", Account_1.createAnAccount);
-router.put("/putAccount", (req, res) => {
-    res.send("HelloWorld");
-});
-router.delete("/deleteAccount", (req, res) => {
-    res.send("HelloWorld");
-});
 exports.default = router;

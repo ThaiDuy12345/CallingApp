@@ -9,4 +9,5 @@ const router = express_1.default.Router();
 router.post("/getAllGroup", Group_1.getAllGroup);
 router.post("/createGroup", Group_1.createGroup);
 router.put("/joinGroup", Group_1.joinGroup);
+router.put("/leaveGroup", Group_1.leaveGroup);
 exports.default = router;
