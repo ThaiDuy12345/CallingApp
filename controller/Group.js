@@ -161,7 +161,7 @@ exports.leaveGroup = leaveGroup;
 const checkAnyAccountLeftInTheGroup = (allAccount, group_id) => {
     for (var i = 0; i < allAccount.length; i++) {
         for (var k = 0; k < allAccount[i].group.length; k++) {
-            if (allAccount[i].group[k]._id.toString() === group_id)
+            if (allAccount[i].group[k]._id === group_id)
                 return true;
         }
     }
