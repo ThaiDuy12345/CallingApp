@@ -111,7 +111,6 @@ export const leaveGroup = async (req:any, res:any) => {
         })
         //Kiểm tra thử là có còn ai tồn đọng trong nhóm
         if(checkAnyAccountLeftInTheGroup(await Account.find({}), group?._id) === false){
-            console.log("Không còn một ai trong nhóm")
             //Xoá hết tất cả đoạn chat đến group này
             await GroupChat.deleteMany({
                 to_id: group?._id
@@ -121,13 +120,12 @@ export const leaveGroup = async (req:any, res:any) => {
                 _id: group?._id
             })
         }else{
-            console.log("Vẫn còn có người trong group")
             //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
             await GroupChat.updateMany({
                 from_id: account._id,
                 to_id: group?._id
             }, {
-                content: "Không hiển thị nội dung vì người dùng đã rời khỏi nhóm"
+                content: "The message was deleted"
             })
         }
         res.json(group)

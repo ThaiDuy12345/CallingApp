@@ -134,7 +134,6 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         //Kiểm tra thử là có còn ai tồn đọng trong nhóm
         if (checkAnyAccountLeftInTheGroup(yield Account_1.default.find({}), group === null || group === void 0 ? void 0 : group._id) === false) {
-            console.log("Không còn một ai trong nhóm");
             //Xoá hết tất cả đoạn chat đến group này
             yield GroupChat_1.default.deleteMany({
                 to_id: group === null || group === void 0 ? void 0 : group._id
@@ -145,13 +144,12 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         else {
-            console.log("Vẫn còn có người trong group");
             //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
             yield GroupChat_1.default.updateMany({
                 from_id: account._id,
                 to_id: group === null || group === void 0 ? void 0 : group._id
             }, {
-                content: "Không hiển thị nội dung vì người dùng đã rời khỏi nhóm"
+                content: "The message was deleted"
             });
         }
         res.json(group);
