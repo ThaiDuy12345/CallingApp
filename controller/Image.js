@@ -11,6 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAnImage = void 0;
 const getAnImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.sendFile(`${__dirname}/public/Images/${req.param.Id}`);
+    res.sendFile(`../public/Images/${req.params.Id}`);
 });
 exports.getAnImage = getAnImage;
