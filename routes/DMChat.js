@@ -9,6 +9,6 @@ const DMChat_1 = require("../controller/DMChat");
 const upload = (0, multer_1.default)();
 const router = express_1.default.Router();
 router.post("/addAChat", DMChat_1.addAChat);
-router.post("/loadImage", DMChat_1.loadImage);
-router.post("/getChat", upload.single("file"), DMChat_1.getChat);
+router.post("/loadImage", upload.single("file"), DMChat_1.loadImage);
+router.post("/getChat", DMChat_1.getChat);
 exports.default = router;

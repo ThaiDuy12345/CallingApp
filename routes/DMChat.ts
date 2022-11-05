@@ -5,6 +5,6 @@ const upload = multer()
 const router = express.Router()
 
 router.post("/addAChat", addAChat)
-router.post("/loadImage", loadImage)
-router.post("/getChat", upload.single("file"), getChat)
+router.post("/loadImage",upload.single("file"), loadImage)
+router.post("/getChat", getChat)
 export default router
