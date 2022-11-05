@@ -44,6 +44,6 @@ export const getChatDMDataAndReturn = async(data:any) => {
     }).populate('from_id')
 }
 export const loadImage = (req:any, res:any) => {
-    const file = req.body.file
+    const file = req.body
     console.log(file)
 }
