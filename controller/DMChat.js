@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.loadImage = exports.getChatDMDataAndReturn = exports.getChat = exports.addAChat = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const DMChat_1 = __importDefault(require("../model/DMChat"));
+const fs_1 = __importDefault(require("fs"));
 const addAChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newChat = new DMChat_1.default({
         _id: new mongoose_1.default.Types.ObjectId(),
@@ -59,6 +60,9 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
 exports.getChatDMDataAndReturn = getChatDMDataAndReturn;
 const loadImage = (req, res) => {
     const file = req.body;
-    console.log(file);
+    fs_1.default.writeFile(`../data/Images/${req.body.name}`, file, err => {
+        if (err)
+            console.log(err);
+    });
 };
 exports.loadImage = loadImage;

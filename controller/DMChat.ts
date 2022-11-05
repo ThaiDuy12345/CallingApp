@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose, { MongooseOptions } from 'mongoose'
 import DMChat from '../model/DMChat'
-
+import fs from 'fs'
 import Account from '../model/Account'
 export const addAChat = async (req:any, res:any) => {
     const newChat = new DMChat({
@@ -45,5 +45,7 @@ export const getChatDMDataAndReturn = async(data:any) => {
 }
 export const loadImage = (req:any, res:any) => {
     const file = req.body
-    console.log(file)
+    fs.writeFile(`../data/Images/${req.body.name}`, file, err => {
+        if(err) console.log(err)
+    })
 }
