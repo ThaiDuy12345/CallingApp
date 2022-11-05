@@ -16,7 +16,6 @@ const storage = multer_1.default.diskStorage({
 });
 const upload = (0, multer_1.default)({ storage: storage });
 const router = express_1.default.Router();
-router.post("/addAChat", GroupChat_1.addAChat);
 router.post("/loadImage", upload.single("file"), GroupChat_1.loadImage);
 router.post("/getChat", GroupChat_1.getChat);
 exports.default = router;

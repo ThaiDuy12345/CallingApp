@@ -12,8 +12,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage})
 const router = express.Router()
 
-
-router.post("/addAChat", addAChat)
 router.post("/loadImage",upload.single("file"), loadImage)
 router.post("/getChat", getChat)
 export default router

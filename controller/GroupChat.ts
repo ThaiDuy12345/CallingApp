@@ -34,7 +34,7 @@ export const getChatGroupDataAndReturn = async(data:any) => {
         to_id: data.to_id,
         chatCategory: data.chatCategory,
     })
-
+    console.log(result)
     return await GroupChat.findOne({
         _id: result._id
     }).populate('from_id')
