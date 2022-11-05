@@ -53,6 +53,6 @@ const getChatGroupDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, fu
 });
 exports.getChatGroupDataAndReturn = getChatGroupDataAndReturn;
 const loadImage = (req, res) => {
-    res.json({ name: req.body.name });
+    res.json({ name: req.file.filename });
 };
 exports.loadImage = loadImage;

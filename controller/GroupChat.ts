@@ -40,5 +40,5 @@ export const getChatGroupDataAndReturn = async(data:any) => {
 }
 
 export const loadImage = (req:any, res:any) => {
-    res.json({name:req.body.name})
+    res.json({name:req.file.filename})
 }
