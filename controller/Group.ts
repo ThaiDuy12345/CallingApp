@@ -119,12 +119,10 @@ export const leaveGroup = async (req:any, res:any) => {
             })
             let path = __dirname.replace("/controller", "")
             for (let i = 0; i < groupChat.length; i++) {
-                if(fs.existsSync(`${path}/public/images/${groupChat[i].content}`)){
-                    fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
-                        if (err) console.log(err)
-                        console.log(`Successfully deleted ${groupChat[i].content}`)
-                    })
-                }
+                fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                    if (err) console.log(err)
+                    console.log(`Successfully deleted ${groupChat[i].content}`)
+                })
             }
             //Xoá hết tất cả đoạn chat đến group này
             await GroupChat.deleteMany({
@@ -144,12 +142,10 @@ export const leaveGroup = async (req:any, res:any) => {
             //Xoá ảnh của những người đã rời khỏi nhóm
             let path = __dirname.replace("/controller", "")
             for (let i = 0; i < groupChat.length; i++) {
-                if(fs.existsSync(`${path}/public/images/${groupChat[i].content}`)){
-                    fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
-                        if (err) console.log(err)
-                        console.log(`Successfully deleted ${groupChat[i].content}`)
-                    })
-                }
+                fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                    if (err) console.log(err)
+                    console.log(`Successfully deleted ${groupChat[i].content}`)
+                })
             }
             await GroupChat.updateMany({
                 from_id: account._id,
