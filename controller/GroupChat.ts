@@ -24,6 +24,7 @@ export const getChat = async (req:any, res:any) => {
     })
     res.json(result1)
 }
+
 export const getChatGroupDataAndReturn = async(data:any) => {
     console.log(`${data.from_id} nhắn với group ${data.to_id} là ${data.content}`)
     const result = await GroupChat.create({
