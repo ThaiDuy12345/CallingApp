@@ -38,11 +38,9 @@ io.on("connection", (socket) => {
     socket.on('on-chat', async(data) => {
         if(data.type === 'dm'){
             const result = await getChatDMDataAndReturn(data)
-            console.log(result)
             io.emit('user-chat', result)
         }else{
             const result = await getChatGroupDataAndReturn(data)
-            console.log(result)
             io.emit('user-chat', result)
         }
     })

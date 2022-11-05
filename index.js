@@ -50,12 +50,10 @@ io.on("connection", (socket) => {
     socket.on('on-chat', (data) => __awaiter(void 0, void 0, void 0, function* () {
         if (data.type === 'dm') {
             const result = yield (0, DMChat_2.getChatDMDataAndReturn)(data);
-            console.log(result);
             io.emit('user-chat', result);
         }
         else {
             const result = yield (0, GroupChat_2.getChatGroupDataAndReturn)(data);
-            console.log(result);
             io.emit('user-chat', result);
         }
     }));
