@@ -119,10 +119,12 @@ export const leaveGroup = async (req:any, res:any) => {
             })
             let path = __dirname.replace("/controller", "")
             for (let i = 0; i < groupChat.length; i++) {
-                fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
-                    if (err) console.log(err)
-                    console.log(`Successfully deleted ${groupChat[i].content}`)
-                })
+                if(fs.existsSync(`${path}/public/images/${groupChat[i].content}`)){
+                    fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                        if (err) console.log(err)
+                        console.log(`Successfully deleted ${groupChat[i].content}`)
+                    })
+                }
             }
             //Xoá hết tất cả đoạn chat đến group này
             await GroupChat.deleteMany({
