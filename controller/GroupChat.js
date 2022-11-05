@@ -46,11 +46,10 @@ const getChatGroupDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, fu
         from_id: data.from_id,
         to_id: data.to_id,
         chatCategory: data.chatCategory,
-    }).catch(err => console.log(err));
-    return null;
-    // return await GroupChat.findOne({
-    //     _id: result._id
-    // }).populate('from_id')
+    });
+    return yield GroupChat_1.default.findOne({
+        _id: result._id
+    }).populate('from_id');
 });
 exports.getChatGroupDataAndReturn = getChatGroupDataAndReturn;
 const loadImage = (req, res) => {

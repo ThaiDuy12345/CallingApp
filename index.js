@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
         }
         else {
             const result = yield (0, GroupChat_2.getChatGroupDataAndReturn)(data);
-            // io.emit('user-chat', result)
+            io.emit('user-chat', result);
         }
     }));
     socket.on('disconnect', () => {

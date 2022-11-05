@@ -33,11 +33,10 @@ export const getChatGroupDataAndReturn = async(data:any) => {
         from_id: data.from_id,
         to_id: data.to_id,
         chatCategory: data.chatCategory,
-    }).catch(err => console.log(err))
-    return null
-    // return await GroupChat.findOne({
-    //     _id: result._id
-    // }).populate('from_id')
+    })
+    return await GroupChat.findOne({
+        _id: result._id
+    }).populate('from_id')
 }
 
 export const loadImage = (req:any, res:any) => {
