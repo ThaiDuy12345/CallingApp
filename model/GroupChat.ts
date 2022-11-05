@@ -18,6 +18,9 @@ const GroupChatSchema = new mongoose.Schema({
     to_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Group'  
+    },
+    chatCategory:{
+        type: String
     }
 }, {
     collection : 'GroupChat'

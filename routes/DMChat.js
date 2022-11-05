@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
 const DMChat_1 = require("../controller/DMChat");
-var storage = multer_1.default.diskStorage({
+const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'images');
+        cb(null, 'public/images');
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);

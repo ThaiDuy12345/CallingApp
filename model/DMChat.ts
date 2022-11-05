@@ -18,6 +18,9 @@ const DMChatSchema = new mongoose.Schema({
     to_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account'  
+    },
+    chatCategory:{
+        type: String
     }
 }, {
     collection : 'DMChat'

@@ -26,15 +26,19 @@ export const getChat = async (req:any, res:any) => {
 }
 
 export const getChatGroupDataAndReturn = async(data:any) => {
-    console.log(`${data.from_id} nhắn với group ${data.to_id} là ${data.content}`)
     const result = await GroupChat.create({
         _id: new mongoose.Types.ObjectId(),
         chatDate: data.chatDate,
         content: data.content,
         from_id: data.from_id,
-        to_id: data.to_id
+        to_id: data.to_id,
+        chatCategory: data.chatCategory,
     })
     return await GroupChat.findOne({
         _id: result._id
     }).populate('from_id')
+}
+
+export const loadImage = (req:any, res:any) => {
+    res.json({name:req.body.name})
 }

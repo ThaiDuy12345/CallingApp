@@ -20,7 +20,7 @@ app.use(cors({
     origin: '*',
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
-app.use(express.static(__dirname));
+app.use(express.static(__dirname+"/public"));
 app.use(express.json())
 var port = process.env.PORT || 5000
 var server = app.listen(port, () => {

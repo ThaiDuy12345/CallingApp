@@ -32,7 +32,7 @@ app.use((0, cors_1.default)({
     origin: '*',
     methods: ["GET", "POST", "PUT", "DELETE"]
 }));
-app.use(express_1.default.static(__dirname));
+app.use(express_1.default.static(__dirname + "/public"));
 app.use(express_1.default.json());
 var port = process.env.PORT || 5000;
 var server = app.listen(port, () => {

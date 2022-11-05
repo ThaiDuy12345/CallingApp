@@ -50,7 +50,8 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
         chatDate: data.chatDate,
         content: data.content,
         from_id: data.from_id,
-        to_id: data.to_id
+        to_id: data.to_id,
+        chatCategory: data.chatCategory
     });
     return yield DMChat_1.default.findOne({
         _id: result._id
@@ -58,6 +59,6 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.getChatDMDataAndReturn = getChatDMDataAndReturn;
 const loadImage = (req, res) => {
-    console.log(`${req.body.name} saves at ${req.file.detectedFileExtension}`);
+    res.json({ name: req.body.name });
 };
 exports.loadImage = loadImage;

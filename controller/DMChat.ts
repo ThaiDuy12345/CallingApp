@@ -37,12 +37,14 @@ export const getChatDMDataAndReturn = async(data:any) => {
         chatDate: data.chatDate,
         content: data.content,
         from_id: data.from_id,
-        to_id: data.to_id
+        to_id: data.to_id,
+        chatCategory: data.chatCategory
     })
     return await DMChat.findOne({
         _id: result._id
     }).populate('from_id')
 }
+
 export const loadImage = (req:any, res:any) => {
-    console.log(`${req.body.name} saves at ${req.file.detectedFileExtension}`)
+    res.json({name:req.body.name})
 }
