@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import Group from '../model/Group'
 import Account from '../model/Account'
 import GroupChat from '../model/GroupChat'
+import fs from 'fs'
 export const getAllGroup = async(req:any, res:any) => {
     const account = await Account.findOne({
         _id:req.body.from_id
@@ -115,12 +116,36 @@ export const leaveGroup = async (req:any, res:any) => {
             await GroupChat.deleteMany({
                 to_id: group?._id
             })
+            let groupChat = await GroupChat.find({
+                to_id: group?._id,
+                chatCategory: "1"
+            })
+            let path = __dirname.replace("/controller", "")
+            for (let i = 0; i < groupChat.length; i++) {
+                fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                    if (err) console.log(err)
+                    console.log(`Successfully deleted ${groupChat[i].content}`)
+                })
+            }
             //Xoá nhóm
             await Group.findOneAndDelete({
                 _id: group?._id
             })
         }else{
             //Chuyển đổi người dùng thành -> Thành viên đã bị xoá khỏi nhóm
+            let groupChat = await GroupChat.find({
+                from_id: account._id,
+                to_id: group?._id,
+                chatCategory: "1"
+            })
+            //Xoá ảnh của những người đã rời khỏi nhóm
+            let path = __dirname.replace("/controller", "")
+            for (let i = 0; i < groupChat.length; i++) {
+                fs.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                    if (err) console.log(err)
+                    console.log(`Successfully deleted ${groupChat[i].content}`)
+                })
+            }
             await GroupChat.updateMany({
                 from_id: account._id,
                 to_id: group?._id
