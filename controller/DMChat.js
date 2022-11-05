@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getChatDMDataAndReturn = exports.getChat = exports.addAChat = void 0;
+exports.loadImage = exports.getChatDMDataAndReturn = exports.getChat = exports.addAChat = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const DMChat_1 = __importDefault(require("../model/DMChat"));
 const addAChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,7 +45,6 @@ const getChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getChat = getChat;
 const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`${data.from_id} nhắn với ${data.to_id} là ${data.content}`);
     const result = yield DMChat_1.default.create({
         _id: new mongoose_1.default.Types.ObjectId(),
         chatDate: data.chatDate,
@@ -58,3 +57,8 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
     }).populate('from_id');
 });
 exports.getChatDMDataAndReturn = getChatDMDataAndReturn;
+const loadImage = (req, res) => {
+    const file = req.body.file;
+    console.log(file);
+};
+exports.loadImage = loadImage;

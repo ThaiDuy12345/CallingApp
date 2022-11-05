@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose, { MongooseOptions } from 'mongoose'
 import DMChat from '../model/DMChat'
+
 import Account from '../model/Account'
 export const addAChat = async (req:any, res:any) => {
     const newChat = new DMChat({
@@ -31,7 +32,6 @@ export const getChat = async (req:any, res:any) => {
     res.json(result3)
 }
 export const getChatDMDataAndReturn = async(data:any) => {
-    console.log(`${data.from_id} nhắn với ${data.to_id} là ${data.content}`)
     const result = await DMChat.create({
         _id: new mongoose.Types.ObjectId(),
         chatDate: data.chatDate,
@@ -42,4 +42,8 @@ export const getChatDMDataAndReturn = async(data:any) => {
     return await DMChat.findOne({
         _id: result._id
     }).populate('from_id')
+}
+export const loadImage = (req:any, res:any) => {
+    const file = req.body.file
+    console.log(file)
 }
