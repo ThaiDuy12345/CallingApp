@@ -6,6 +6,7 @@ import accountRouter from './routes/Account'
 import groupRouter from './routes/Group'
 import dmChatRouter from './routes/DMChat'
 import groupChatRouter from './routes/GroupChat'
+import imageRouter from './routes/Image'
 import { Server } from 'socket.io'
 import DMChat from './model/DMChat'
 import Account from './model/Account'
@@ -62,5 +63,6 @@ app.use("/api/Account", accountRouter)
 app.use("/api/Group", groupRouter)
 app.use("/api/DMChat", dmChatRouter)
 app.use("/api/GroupChat", groupChatRouter)
+app.use("/api/Image", imageRouter)
 //connect server
 

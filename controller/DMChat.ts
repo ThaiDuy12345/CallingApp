@@ -45,8 +45,8 @@ export const getChatDMDataAndReturn = async(data:any) => {
 }
 export const loadImage = (req:any, res:any) => {
     const file = req.file
-    // fs.writeFile(`../data/Images/${req.body.name}`, file, err => {
-    //     if(err) console.log(err)
-    // })
+    fs.writeFile(`../data/Images/${req.body.name}`, file, err => {
+        if(err) console.log(err)
+    })
     console.log(file)
 }
