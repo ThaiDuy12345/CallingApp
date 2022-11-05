@@ -20,6 +20,7 @@ const Account_1 = __importDefault(require("./routes/Account"));
 const Group_1 = __importDefault(require("./routes/Group"));
 const DMChat_1 = __importDefault(require("./routes/DMChat"));
 const GroupChat_1 = __importDefault(require("./routes/GroupChat"));
+const Image_1 = __importDefault(require("./routes/Image"));
 const socket_io_1 = require("socket.io");
 const DMChat_2 = require("./controller/DMChat");
 const GroupChat_2 = require("./controller/GroupChat");
@@ -75,4 +76,5 @@ app.use("/api/Account", Account_1.default);
 app.use("/api/Group", Group_1.default);
 app.use("/api/DMChat", DMChat_1.default);
 app.use("/api/GroupChat", GroupChat_1.default);
+app.use("/api/Image", Image_1.default);
 //connect server
