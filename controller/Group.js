@@ -142,11 +142,13 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
             let path = __dirname.replace("/controller", "");
             for (let i = 0; i < groupChat.length; i++) {
-                fs_1.default.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
-                    if (err)
-                        console.log(err);
-                    console.log(`Successfully deleted ${groupChat[i].content}`);
-                });
+                if (fs_1.default.existsSync(`${path}/public/images/${groupChat[i].content}`)) {
+                    fs_1.default.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                        if (err)
+                            console.log(err);
+                        console.log(`Successfully deleted ${groupChat[i].content}`);
+                    });
+                }
             }
             //Xoá hết tất cả đoạn chat đến group này
             yield GroupChat_1.default.deleteMany({
@@ -167,11 +169,13 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             //Xoá ảnh của những người đã rời khỏi nhóm
             let path = __dirname.replace("/controller", "");
             for (let i = 0; i < groupChat.length; i++) {
-                fs_1.default.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
-                    if (err)
-                        console.log(err);
-                    console.log(`Successfully deleted ${groupChat[i].content}`);
-                });
+                if (fs_1.default.existsSync(`${path}/public/images/${groupChat[i].content}`)) {
+                    fs_1.default.unlink(`${path}/public/images/${groupChat[i].content}`, err => {
+                        if (err)
+                            console.log(err);
+                        console.log(`Successfully deleted ${groupChat[i].content}`);
+                    });
+                }
             }
             yield GroupChat_1.default.updateMany({
                 from_id: account._id,
