@@ -47,7 +47,6 @@ const getChatGroupDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, fu
         to_id: data.to_id,
         chatCategory: data.chatCategory,
     });
-    console.log(result);
     return yield GroupChat_1.default.findOne({
         _id: result._id
     }).populate('from_id');
