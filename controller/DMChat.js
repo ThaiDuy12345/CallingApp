@@ -60,7 +60,7 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
 exports.getChatDMDataAndReturn = getChatDMDataAndReturn;
 const loadImage = (req, res) => {
     const file = req.file;
-    fs_1.default.writeFile(`../data/Images/${req.body.name}`, file, err => {
+    fs_1.default.writeFile(`${__dirname}/Images/${req.body.name}`, file, err => {
         if (err)
             console.log(err);
     });
