@@ -112,10 +112,7 @@ export const leaveGroup = async (req:any, res:any) => {
         })
         //Kiểm tra thử là có còn ai tồn đọng trong nhóm
         if(checkAnyAccountLeftInTheGroup(await Account.find({}), group?._id) === false){
-            //Xoá hết tất cả đoạn chat đến group này
-            await GroupChat.deleteMany({
-                to_id: group?._id
-            })
+            //Xoá ảnh thuộc về nhóm
             let groupChat = await GroupChat.find({
                 to_id: group?._id,
                 chatCategory: "1"
@@ -127,6 +124,10 @@ export const leaveGroup = async (req:any, res:any) => {
                     console.log(`Successfully deleted ${groupChat[i].content}`)
                 })
             }
+            //Xoá hết tất cả đoạn chat đến group này
+            await GroupChat.deleteMany({
+                to_id: group?._id
+            })        
             //Xoá nhóm
             await Group.findOneAndDelete({
                 _id: group?._id
@@ -161,7 +162,6 @@ export const leaveGroup = async (req:any, res:any) => {
 const checkAnyAccountLeftInTheGroup = (allAccount:any, group_id:any) => {
     for(var i = 0; i < allAccount.length; i++){
         for(var k = 0;k < allAccount[i].group.length; k++){
-            console.log(allAccount[i].group[k]._id+ " vs "+group_id)
             if(allAccount[i].group[k]._id.toString() === group_id.toString()) {
                 return true
             }

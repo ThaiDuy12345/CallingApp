@@ -135,10 +135,7 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
         //Kiểm tra thử là có còn ai tồn đọng trong nhóm
         if (checkAnyAccountLeftInTheGroup(yield Account_1.default.find({}), group === null || group === void 0 ? void 0 : group._id) === false) {
-            //Xoá hết tất cả đoạn chat đến group này
-            yield GroupChat_1.default.deleteMany({
-                to_id: group === null || group === void 0 ? void 0 : group._id
-            });
+            //Xoá ảnh thuộc về nhóm
             let groupChat = yield GroupChat_1.default.find({
                 to_id: group === null || group === void 0 ? void 0 : group._id,
                 chatCategory: "1"
@@ -151,6 +148,10 @@ const leaveGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                     console.log(`Successfully deleted ${groupChat[i].content}`);
                 });
             }
+            //Xoá hết tất cả đoạn chat đến group này
+            yield GroupChat_1.default.deleteMany({
+                to_id: group === null || group === void 0 ? void 0 : group._id
+            });
             //Xoá nhóm
             yield Group_1.default.findOneAndDelete({
                 _id: group === null || group === void 0 ? void 0 : group._id
@@ -189,7 +190,6 @@ exports.leaveGroup = leaveGroup;
 const checkAnyAccountLeftInTheGroup = (allAccount, group_id) => {
     for (var i = 0; i < allAccount.length; i++) {
         for (var k = 0; k < allAccount[i].group.length; k++) {
-            console.log(allAccount[i].group[k]._id + " vs " + group_id);
             if (allAccount[i].group[k]._id.toString() === group_id.toString()) {
                 return true;
             }
