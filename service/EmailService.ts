@@ -4,9 +4,9 @@ const transport = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: 'thaiduynguyen.nt@gmail.com', // your email address
-    pass: 'sirikakire12345', // your password
-  }
+    user: "thaiduynguyen.nt@gmail.com", // your email address
+    pass: "camhaltjdaaqnjao", // your password
+  },
 })
 const EmailService = async (emailAddress: {
   to: string

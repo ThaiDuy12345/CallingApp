@@ -18,9 +18,9 @@ const transport = nodemailer_1.default.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'thaiduynguyen.nt@gmail.com',
-        pass: 'sirikakire12345', // your password
-    }
+        user: "thaiduynguyen.nt@gmail.com",
+        pass: "camhaltjdaaqnjao", // your password
+    },
 });
 const EmailService = (emailAddress) => __awaiter(void 0, void 0, void 0, function* () {
     emailAddress.subject = "Generate new password for your email";
