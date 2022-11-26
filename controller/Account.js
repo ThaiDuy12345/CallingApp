@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.forgotPassword = exports.getAccountWithId = exports.getAccount = exports.createAnAccount = exports.getEveryAccount = exports.getAllAccount = void 0;
+exports.updateNewPassword = exports.forgotPassword = exports.getAccountWithId = exports.getAccount = exports.createAnAccount = exports.getEveryAccount = exports.getAllAccount = void 0;
 const Account_1 = __importDefault(require("../model/Account"));
 const EmailService_1 = __importDefault(require("../service/EmailService"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -66,7 +66,8 @@ const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.json(null);
         const randomString = Math.random().toString(36).slice(-8);
         yield Account_1.default.findOneAndUpdate({ email: req.body.email }, { password: randomString });
-        const bodyText = `Someone (hopefully you) has requested a password reset for your SiriBlogger account. Your new password: ${randomString} If you don't wish to reset your password, disregard this email and no action will be taken. SiriBlogger!! <3`;
+        const bodyText = `Someone (hopefully you) has requested a password reset for your SiriBlogger account. Your new password: ${randomString}
+    If you don't wish to reset your password, disregard this email and no action will be taken. SiriBlogger!! <3`;
         (0, EmailService_1.default)({
             to: req.body.email,
             text: bodyText,
@@ -79,3 +80,19 @@ const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.forgotPassword = forgotPassword;
+const updateNewPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const account = yield Account_1.default.findOneAndUpdate({
+        _id: req.body._id,
+    }, {
+        password: req.body.password,
+    }, {
+        new: true,
+    });
+    if (account === null || account.password !== req.body.password)
+        res.json({
+            message: "Cannot update new password",
+        });
+    else
+        res.json(null);
+});
+exports.updateNewPassword = updateNewPassword;

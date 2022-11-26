@@ -5,7 +5,8 @@ import {
     getAccount,
     getAccountWithId,
     getEveryAccount,
-    forgotPassword
+    forgotPassword,
+    updateNewPassword
 } from '../controller/Account'
 const router = express.Router()
 
@@ -15,5 +16,6 @@ router.post("/getAccount", getAccount)
 router.get("/getAccountWithId/:Id", getAccountWithId)
 router.post("/createAnAccount", createAnAccount)
 router.post("/forgotPassword", forgotPassword)
+router.put("/updateNewPassword", updateNewPassword)
 
 export default router
