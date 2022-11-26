@@ -13,15 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
-console.log("Email: " + process.env.PROD_MAIL_USER);
-console.log("Password: " + process.env.PROD_MAIL_PASS);
 const transport = nodemailer_1.default.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     secure: false,
     auth: {
-        user: process.env.PROD_MAIL_USER,
-        pass: process.env.PROD_MAIL_PASS, // your password
+        user: 'thaiduynguyen.nt@gmail.com',
+        pass: 'sirikakire12345', // your password
     }
 });
 const EmailService = (emailAddress) => __awaiter(void 0, void 0, void 0, function* () {

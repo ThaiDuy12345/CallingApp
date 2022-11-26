@@ -1,13 +1,11 @@
 import nodemailer from "nodemailer"
-console.log("Email: " + process.env.PROD_MAIL_USER)
-console.log("Password: " + process.env.PROD_MAIL_PASS)
 const transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
-    user: process.env.PROD_MAIL_USER, // your email address
-    pass: process.env.PROD_MAIL_PASS, // your password
+    user: 'thaiduynguyen.nt@gmail.com', // your email address
+    pass: 'sirikakire12345', // your password
   }
 })
 const EmailService = async (emailAddress: {
