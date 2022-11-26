@@ -15,7 +15,6 @@ export const addAChat = async (req:any, res:any) => {
         res.json(newChat)
     })
 }
-
 export const getChat = async (req:any, res:any) => {
     const result1 = await DMChat.find({
         from_id: req.body.user1_id,
@@ -44,7 +43,6 @@ export const getChatDMDataAndReturn = async(data:any) => {
         _id: result._id
     }).populate('from_id')
 }
-
 export const loadImage = (req:any, res:any) => {
     res.json({name:req.file.filename})
 }

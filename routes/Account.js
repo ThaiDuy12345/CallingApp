@@ -11,4 +11,5 @@ router.post("/getAllAccount", Account_1.getAllAccount);
 router.post("/getAccount", Account_1.getAccount);
 router.get("/getAccountWithId/:Id", Account_1.getAccountWithId);
 router.post("/createAnAccount", Account_1.createAnAccount);
+router.post("/forgotPassword", Account_1.forgotPassword);
 exports.default = router;

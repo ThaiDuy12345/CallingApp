@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAccountWithId = exports.getAccount = exports.createAnAccount = exports.getEveryAccount = exports.getAllAccount = void 0;
+exports.forgotPassword = exports.getAccountWithId = exports.getAccount = exports.createAnAccount = exports.getEveryAccount = exports.getAllAccount = void 0;
 const Account_1 = __importDefault(require("../model/Account"));
+const EmailService_1 = __importDefault(require("../service/EmailService"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const getAllAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     Account_1.default.find({
-        _id: { $ne: req.body._id }
+        _id: { $ne: req.body._id },
     }, (err, results) => {
         res.json(results);
     });
@@ -35,7 +36,7 @@ const createAnAccount = (req, res) => __awaiter(void 0, void 0, void 0, function
         name: req.body.username,
         password: req.body.password,
         email: req.body.email,
-        group: []
+        group: [],
     });
     Account_1.default.create(newAccount, (err, account) => {
         res.json(newAccount);
@@ -45,7 +46,7 @@ exports.createAnAccount = createAnAccount;
 const getAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     Account_1.default.findOne({
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
     }, (err, account) => {
         res.json(account);
     });
@@ -53,9 +54,28 @@ const getAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getAccount = getAccount;
 const getAccountWithId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     Account_1.default.findOne({
-        _id: req.params.Id
+        _id: req.params.Id,
     }, (err, account) => {
         res.json(account);
     });
 });
 exports.getAccountWithId = getAccountWithId;
+const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const account = yield Account_1.default.findOne({ email: req.body.email });
+    if (account !== null) {
+        res.json(null);
+        const randomString = Math.random().toString(36).slice(-8);
+        yield Account_1.default.findOneAndUpdate({ email: req.body.email }, { password: randomString });
+        const body = "SiriBlogger, you recently have recreated a new password: " + randomString;
+        (0, EmailService_1.default)({
+            to: req.body.email,
+            text: randomString,
+            from: "",
+            subject: "",
+        });
+    }
+    else {
+        res.json({ message: "Account does not exist" });
+    }
+});
+exports.forgotPassword = forgotPassword;
