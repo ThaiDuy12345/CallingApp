@@ -60,7 +60,7 @@ export const forgotPassword = async (req: any, res: any) => {
       { password: randomString }
     )
     const bodyText = `Someone (hopefully you) has requested a password reset for your SiriBlogger account. Your new password: ${randomString}
-        If you don't wish to reset your password, disregard this email and no action will be taken. SiriBlogger!! <3`
+    If you don't wish to reset your password, disregard this email and no action will be taken. SiriBlogger!! <3`
     EmailService({
       to: req.body.email,
       text: bodyText,
