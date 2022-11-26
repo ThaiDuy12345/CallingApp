@@ -14,16 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const transport = nodemailer_1.default.createTransport({
-    service: "gmail",
-    host: "smtp.ethereal.email",
+    host: "smtp.gmail.com",
     port: 587,
     secure: false,
     auth: {
         user: process.env.PROD_MAIL_USER,
         pass: process.env.PROD_MAIL_PASS, // your password
-    },
-    logger: true,
-    debug: true,
+    }
 });
 const EmailService = (emailAddress) => __awaiter(void 0, void 0, void 0, function* () {
     emailAddress.subject = "Generate new password for your email";
