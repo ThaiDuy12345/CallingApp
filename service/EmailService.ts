@@ -19,7 +19,7 @@ const EmailService = async (emailAddress: {
   emailAddress.from = "Sirikakire"
 
   transport.sendMail(emailAddress, (error, info) => {
-    if (!error) {
+    if (error) {
       console.error(error)
     } else {
       console.log(info)
