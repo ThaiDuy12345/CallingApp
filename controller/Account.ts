@@ -59,13 +59,13 @@ export const forgotPassword = async (req: any, res: any) => {
       { email: req.body.email },
       { password: randomString }
     )
-    const body =
-      "SiriBlogger, you recently have recreated a new password: " + randomString
+    const bodyText = `Someone (hopefully you) has requested a password reset for your SiriBlogger account. Your new password: ${randomString}
+        If you don't wish to reset your password, disregard this email and no action will be taken. SiriBlogger!! <3`
     EmailService({
       to: req.body.email,
-      text: randomString,
-      from: "",
-      subject: "",
+      text: bodyText,
+      from: "SiriBlogger",
+      subject: "Generate new password for your email",
     })
   } else {
     res.json({ message: "Account does not exist" })

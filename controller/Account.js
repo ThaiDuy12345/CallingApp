@@ -66,12 +66,13 @@ const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.json(null);
         const randomString = Math.random().toString(36).slice(-8);
         yield Account_1.default.findOneAndUpdate({ email: req.body.email }, { password: randomString });
-        const body = "SiriBlogger, you recently have recreated a new password: " + randomString;
+        const bodyText = `Someone (hopefully you) has requested a password reset for your SiriBlogger account. Your new password: ${randomString}
+        If you don't wish to reset your password, disregard this email and no action will be taken. SiriBlogger!! <3`;
         (0, EmailService_1.default)({
             to: req.body.email,
-            text: randomString,
-            from: "",
-            subject: "",
+            text: bodyText,
+            from: "SiriBlogger",
+            subject: "Generate new password for your email",
         });
     }
     else {

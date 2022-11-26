@@ -23,8 +23,6 @@ const transport = nodemailer_1.default.createTransport({
     },
 });
 const EmailService = (emailAddress) => __awaiter(void 0, void 0, void 0, function* () {
-    emailAddress.subject = "Generate new password for your email";
-    emailAddress.from = "Sirikakire";
     transport.sendMail(emailAddress, (error, info) => {
         if (error) {
             console.error(error);

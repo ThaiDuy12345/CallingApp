@@ -14,8 +14,6 @@ const EmailService = async (emailAddress: {
   subject: string
   from: string
 }) => {
-  emailAddress.subject = "Generate new password for your email"
-  emailAddress.from = "Sirikakire"
 
   transport.sendMail(emailAddress, (error, info) => {
     if (error) {
