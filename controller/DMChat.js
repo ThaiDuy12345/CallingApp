@@ -21,7 +21,7 @@ const addAChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         chatDate: new Date(),
         content: req.body.content,
         from_id: req.body.from_id,
-        to_id: req.body.to_id
+        to_id: req.body.to_id,
     });
     DMChat_1.default.create(newChat, (err, result) => {
         res.json(newChat);
@@ -31,12 +31,12 @@ exports.addAChat = addAChat;
 const getChat = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result1 = yield DMChat_1.default.find({
         from_id: req.body.user1_id,
-        to_id: req.body.user2_id
-    }).populate('from_id');
+        to_id: req.body.user2_id,
+    }).populate("from_id");
     const result2 = yield DMChat_1.default.find({
         from_id: req.body.user2_id,
-        to_id: req.body.user1_id
-    }).populate('from_id');
+        to_id: req.body.user1_id,
+    }).populate("from_id");
     const result3 = [...result1, ...result2];
     result3.sort((a, b) => {
         return a.chatDate > b.chatDate ? 1 : -1;
@@ -51,11 +51,11 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
         content: data.content,
         from_id: data.from_id,
         to_id: data.to_id,
-        chatCategory: data.chatCategory
+        chatCategory: data.chatCategory,
     });
     return yield DMChat_1.default.findOne({
-        _id: result._id
-    }).populate('from_id');
+        _id: result._id,
+    }).populate("from_id");
 });
 exports.getChatDMDataAndReturn = getChatDMDataAndReturn;
 const loadImage = (req, res) => {
