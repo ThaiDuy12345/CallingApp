@@ -29,35 +29,35 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     credentials: true,
-    origin: '*',
-    methods: ["GET", "POST", "PUT", "DELETE"]
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use(express_1.default.static(__dirname + "/public"));
 app.use(express_1.default.json());
 var port = process.env.PORT || 5000;
 var server = app.listen(port, () => {
-    console.log('Server is running');
+    console.log("Server is running");
 });
 const io = new socket_io_1.Server(server, {
     cors: {
         credentials: true,
         origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE"]
-    }
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
 });
 io.on("connection", (socket) => {
     console.log(`user ${socket.id} connected`);
-    socket.on('on-chat', (data) => __awaiter(void 0, void 0, void 0, function* () {
-        if (data.type === 'dm') {
+    socket.on("on-chat", (data) => __awaiter(void 0, void 0, void 0, function* () {
+        if (data.type === "dm") {
             const result = yield (0, DMChat_2.getChatDMDataAndReturn)(data);
-            io.emit('user-chat', result);
+            io.emit("user-chat", result);
         }
         else {
             const result = yield (0, GroupChat_2.getChatGroupDataAndReturn)(data);
-            io.emit('user-chat', result);
+            io.emit("user-chat", result);
         }
     }));
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
         console.log(`bye ${socket.id}`);
     });
 });
