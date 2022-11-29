@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -47,16 +38,16 @@ const io = new socket_io_1.Server(server, {
 });
 io.on("connection", (socket) => {
     console.log(`user ${socket.id} connected`);
-    socket.on('on-chat', (data) => __awaiter(void 0, void 0, void 0, function* () {
+    socket.on('on-chat', data => {
         if (data.type === 'dm') {
-            const result = yield (0, DMChat_2.getChatDMDataAndReturn)(data);
+            const result = (0, DMChat_2.getChatDMDataAndReturn)(data);
             io.emit('user-chat', result);
         }
         else {
-            const result = yield (0, GroupChat_2.getChatGroupDataAndReturn)(data);
+            const result = (0, GroupChat_2.getChatGroupDataAndReturn)(data);
             io.emit('user-chat', result);
         }
-    }));
+    });
     socket.on('disconnect', () => {
         console.log(`bye ${socket.id}`);
     });

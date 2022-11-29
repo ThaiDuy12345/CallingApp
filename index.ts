@@ -35,12 +35,12 @@ const io = new Server(server, {
 })
 io.on("connection", (socket) => {
     console.log(`user ${socket.id} connected`)
-    socket.on('on-chat', async(data) => {
+    socket.on('on-chat', data => {
         if(data.type === 'dm'){
-            const result = await getChatDMDataAndReturn(data)
+            const result = getChatDMDataAndReturn(data)
             io.emit('user-chat', result)
         }else{
-            const result = await getChatGroupDataAndReturn(data)
+            const result = getChatGroupDataAndReturn(data)
             io.emit('user-chat', result)
         }
     })
