@@ -3,7 +3,7 @@ import mongoose, { MongooseOptions } from "mongoose"
 import DMChat from "../model/DMChat"
 import fs from "fs"
 import Account from "../model/Account"
-export const addAChat = async (req: any, res: any) => {
+export const addAChat = async (req: express.Request, res: express.Response) => {
     const newChat = new DMChat({
         _id: new mongoose.Types.ObjectId(),
         chatDate: new Date(),
@@ -15,7 +15,7 @@ export const addAChat = async (req: any, res: any) => {
         res.json(newChat)
     })
 }
-export const getChat = async (req: any, res: any) => {
+export const getChat = async (req: express.Request, res: express.Response) => {
     const result1 = await DMChat.find({
         from_id: req.body.user1_id,
         to_id: req.body.user2_id,
@@ -43,6 +43,6 @@ export const getChatDMDataAndReturn = async (data: any) => {
         _id: result._id,
     }).populate("from_id")
 }
-export const loadImage = (req: any, res: any) => {
-    res.json({ name: req.file.filename })
+export const loadImage = (req: express.Request, res: express.Response) => {
+    res.json({ name: req.file?.filename })
 }

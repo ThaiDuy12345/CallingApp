@@ -59,6 +59,7 @@ const getChatDMDataAndReturn = (data) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.getChatDMDataAndReturn = getChatDMDataAndReturn;
 const loadImage = (req, res) => {
-    res.json({ name: req.file.filename });
+    var _a;
+    res.json({ name: (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename });
 };
 exports.loadImage = loadImage;
