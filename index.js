@@ -68,7 +68,7 @@ mongoose_1.default.connect(uri, () => {
 });
 //Router
 app.get("/", (req, res) => {
-    res.send("Hell from server");
+    res.send("This is Sirikakire calling app server api, this server is running very well. Hope you are having a wonderful day");
 });
 app.use("/api/Account", Account_1.default);
 app.use("/api/Group", Group_1.default);

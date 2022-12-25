@@ -59,7 +59,7 @@ mongoose.connect(uri, () => {
 })
 //Router
 app.get("/", (req, res) => {
-    res.send("Hell from server")
+    res.send("This is Sirikakire calling app server api, this server is running very well. Hope you are having a wonderful day")
 })
 app.use("/api/Account", accountRouter)
 app.use("/api/Group", groupRouter)
