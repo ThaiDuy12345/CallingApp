@@ -63,9 +63,7 @@ io.on("connection", (socket) => {
 });
 //Set up mongoose
 const uri = `mongodb+srv://sa:${process.env.PASSWORD}@${process.env.CLUSTERNAME}.yuh6by2.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-mongoose_1.default.connect(uri, () => {
-    console.log(`connecting to mongodb ${process.env.CLUSTERNAME} with name: sa - password: ${process.env.PASSWORD} and database name: ${process.env.DBNAME}`);
-});
+mongoose_1.default.connect(uri);
 //Router
 app.get("/", (req, res) => {
     res.send("This is Sirikakire calling app server api, this server is running very well. Hope you are having a wonderful day");
