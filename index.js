@@ -23,7 +23,7 @@ const Image_1 = __importDefault(require("./routes/Image"));
 const socket_io_1 = require("socket.io");
 const DMChat_2 = require("./controller/DMChat");
 const GroupChat_2 = require("./controller/GroupChat");
-const PORT = 5000;
+const PORT = 3000;
 const CLUSTERNAME = "cluster0";
 const PASSWORD = "6vVdndp9h5vXUwp1";
 const DBNAME = "RealTimeChat";
@@ -36,7 +36,7 @@ app.use((0, cors_1.default)({
 }));
 app.use(express_1.default.static(__dirname + "/public"));
 app.use(express_1.default.json());
-var port = PORT || 5000;
+var port = PORT || 3000;
 var server = app.listen(port, () => {
     console.log("Server is running");
 });

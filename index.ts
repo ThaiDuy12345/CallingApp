@@ -9,7 +9,7 @@ import imageRouter from "./routes/Image"
 import { Server } from "socket.io"
 import { getChatDMDataAndReturn } from "./controller/DMChat"
 import { getChatGroupDataAndReturn } from "./controller/GroupChat"
-const PORT = 5000
+const PORT = 3000
 const CLUSTERNAME = "cluster0"
 const PASSWORD = "6vVdndp9h5vXUwp1"
 const DBNAME = "RealTimeChat"
@@ -24,7 +24,7 @@ app.use(
 )
 app.use(express.static(__dirname + "/public"))
 app.use(express.json())
-var port = PORT || 5000
+var port = PORT || 3000
 var server = app.listen(port, () => {
     console.log("Server is running")
 })
