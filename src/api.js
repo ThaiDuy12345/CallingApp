@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
 const uri = `mongodb+srv://sa:${process.env.PASSWORD}@${process.env.CLUSTERNAME}.yuh6by2.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 mongoose_1.default.connect(uri);
 //Router
-app.get("/.netlify/functions/", (req, res) => {
+app.get("/.netlify/functions/api/", (req, res) => {
     res.send("This is Sirikakire calling app server api, this server is running very well. Hope you are having a wonderful day");
 });
 app.use("/.netlify/functions/api/Account", Account_1.default);
