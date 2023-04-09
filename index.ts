@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
 const uri = `mongodb+srv://sa:${PASSWORD}@${CLUSTERNAME}.yuh6by2.mongodb.net/${DBNAME}?retryWrites=true&w=majority`
 mongoose.connect(uri)
 //Router
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     res.send("This is Sirikakire calling app server api side, this server is running very well. Hope you are having a wonderful day")
 })
 app.use("/api/Account", accountRouter)
