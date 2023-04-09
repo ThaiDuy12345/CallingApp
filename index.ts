@@ -1,5 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
+import serverless from "serverless-http"
 import cors from "cors"
 import dotenv from "dotenv"
 import accountRouter from "./routes/Account"
@@ -54,12 +55,18 @@ io.on("connection", (socket) => {
 const uri = `mongodb+srv://sa:${process.env.PASSWORD}@${process.env.CLUSTERNAME}.yuh6by2.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
 mongoose.connect(uri)
 //Router
-app.get("/", (req, res) => {
+app.get("/.netlify/functions/", (req, res) => {
     res.send("This is Sirikakire calling app server api, this server is running very well. Hope you are having a wonderful day")
 })
-app.use("/api/Account", accountRouter)
-app.use("/api/Group", groupRouter)
-app.use("/api/DMChat", dmChatRouter)
-app.use("/api/GroupChat", groupChatRouter)
-app.use("/api/Image", imageRouter)
-//connect server
+app.use("/.netlify/functions/api/Account", accountRouter)
+app.use("/.netlify/functions/api/Group", groupRouter)
+app.use("/.netlify/functions/api/DMChat", dmChatRouter)
+app.use("/.netlify/functions/api/GroupChat", groupChatRouter)
+app.use("/.netlify/functions/api/Image", imageRouter)
+
+//Deployment
+
+module.exports.handler = serverless(app)
+
+
+

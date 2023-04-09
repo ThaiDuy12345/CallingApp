@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const serverless_http_1 = __importDefault(require("serverless-http"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const Account_1 = __importDefault(require("./routes/Account"));
@@ -65,12 +66,13 @@ io.on("connection", (socket) => {
 const uri = `mongodb+srv://sa:${process.env.PASSWORD}@${process.env.CLUSTERNAME}.yuh6by2.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 mongoose_1.default.connect(uri);
 //Router
-app.get("/", (req, res) => {
+app.get("/.netlify/functions/", (req, res) => {
     res.send("This is Sirikakire calling app server api, this server is running very well. Hope you are having a wonderful day");
 });
-app.use("/api/Account", Account_1.default);
-app.use("/api/Group", Group_1.default);
-app.use("/api/DMChat", DMChat_1.default);
-app.use("/api/GroupChat", GroupChat_1.default);
-app.use("/api/Image", Image_1.default);
-//connect server
+app.use("/.netlify/functions/api/Account", Account_1.default);
+app.use("/.netlify/functions/api/Group", Group_1.default);
+app.use("/.netlify/functions/api/DMChat", DMChat_1.default);
+app.use("/.netlify/functions/api/GroupChat", GroupChat_1.default);
+app.use("/.netlify/functions/api/Image", Image_1.default);
+//Deployment
+module.exports.handler = (0, serverless_http_1.default)(app);
