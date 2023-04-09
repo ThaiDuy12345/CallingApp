@@ -42,8 +42,9 @@ var server = app.listen(port, () => {
 });
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE"]
+        origin: "https://siri-real-time-chat.netlify.app",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
     },
 });
 io.on("connection", (socket) => {
